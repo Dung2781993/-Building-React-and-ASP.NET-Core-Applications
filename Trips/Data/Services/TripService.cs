@@ -9,7 +9,7 @@ namespace Trips.Data.Services
     {
         public void AddTrip(Trip trip)
         {
-            throw new NotImplementedException();
+            Data.Trips.Add(trip);
         }
 
         public void DeleteTrip(int tripId)
@@ -19,7 +19,7 @@ namespace Trips.Data.Services
 
         public List<Trip> GetAllTrips()
         {
-            throw new NotImplementedException();
+            return Data.Trips.ToList();
         }
 
         public Trip GetTripById(int tripId)
