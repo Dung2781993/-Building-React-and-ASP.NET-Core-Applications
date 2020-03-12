@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export class Create extends Component {
     constructor(props){
         super(props);
+
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeDateStarted = this.onChangeDateStarted.bind(this);
+        this.onChangeDateCompleted = this.onChangeDateCompleted.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             name : '',
@@ -10,6 +17,47 @@ export class Create extends Component {
             dateStarted: null,
             dateCompleted: null
         }
+    }
+
+    onSubmit(e){
+        e.preventDefault();
+        const {history} = this.props;
+        
+        let tripObject = {
+            Id: Math.floor(Math.random()*1000),
+            name: this.state.name,
+            description: this.state.description,
+            dateStarted: this.state.dateStarted,
+            dateCompleted: this.state.dateCompleted
+        }
+
+        axios.post("api/Trips/AddTrip", tripObject).then(result => {
+            history.push('/trips');
+        })
+    }
+
+    onChangeName(e){
+        this.setState({
+            name: e.target.value
+        });
+    }
+
+    onChangeDescription(e){
+        this.setState({
+            description: e.target.value
+        });
+    }
+
+    onChangeDateStarted(e){
+        this.setState({
+            dateStarted: e.target.value
+        });
+    }
+
+    onChangeDateCompleted(e){
+        this.setState({
+            dateCompleted: e.target.value
+        });
     }
 
     render(){
