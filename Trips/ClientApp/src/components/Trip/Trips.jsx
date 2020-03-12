@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 
 export class Trips extends Component
@@ -11,6 +12,17 @@ export class Trips extends Component
             loading: true
         }
     }
+    componentDidMount(){
+        this.populateTripsData();
+    }
+
+    populateTripsData(){
+        axios.get("api/Trips/GetTrips").then(result => {
+            const response = result.data;
+            this.setState({trips: response, loading: false});
+        })
+    }
+
 
     renderAllTripsTable(trips){
         return (
@@ -25,11 +37,17 @@ export class Trips extends Component
                     </tr>
                 </thead>
                 <tbody>
-                    <td>Hellomama</td>
-                    <td>Hellomama</td>
-                    <td>Hellomama</td>
-                    <td>Hellomama</td>
-                    <td>Hellomama</td>
+                {
+                        trips.map(trip => (
+                        <tr key={trip.id}>
+                            <td>{trip.name}</td>
+                            <td>{trip.description}</td>
+                            <td>{new Date(trip.dateStarted).toLocaleDateString()}</td>
+                            <td>{trip.dateCompleted ? new Date(trip.dateCompleted).toLocaleDateString() :  '-' }</td>
+                            <td> - </td>
+                        </tr>
+                        ))
+                    }
                 </tbody>
             </table>
         )
