@@ -19,6 +19,7 @@
     "react-thunk": "^1.0.0",
     "reactstrap": "^6.3.0",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "rimraf": "^2.6.2"
   },
   "devDependencies": {
